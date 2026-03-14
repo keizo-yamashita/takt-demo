@@ -1,0 +1,41 @@
+# 04-multi-review.yaml
+# 計画 → 実装 → 複数レビュアーによる並列レビュー
+# 学習ポイント: 異なる観点（アーキテクチャ・セキュリティ）での並列レビュー
+
+name: multi-review
+initial_movement: plan
+max_movements: 15
+
+movements:
+  - name: plan
+    persona: planner
+    edit: false
+    rules:
+      - condition: Planning complete
+        next: implement
+
+  - name: implement
+    persona: coder
+    edit: true
+    required_permission_mode: edit
+    rules:
+      - condition: Implementation complete
+        next: arch-review
+
+  - name: arch-review
+    persona: architect       # アーキテクチャ観点のレビュー
+    edit: false
+    rules:
+      - condition: Approved
+        next: security-review
+      - condition: Needs fix
+        next: implement
+
+  - name: security-review
+    persona: security-reviewer  # セキュリティ観点のレビュー
+    edit: false
+    rules:
+      - condition: Approved
+        next: COMPLETE
+      - condition: Needs fix
+        next: implement

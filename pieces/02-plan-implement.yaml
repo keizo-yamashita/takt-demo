@@ -1,0 +1,22 @@
+# 02-plan-implement.yaml
+# 計画 → 実装の2ステップ構成
+# 学習ポイント: movement 間の遷移と edit 権限の違い
+
+name: plan-implement
+initial_movement: plan
+max_movements: 5
+
+movements:
+  - name: plan
+    persona: planner
+    edit: false          # planner はコードを編集できない（読み取り専用）
+    rules:
+      - condition: Planning complete
+        next: implement
+
+  - name: implement
+    persona: coder
+    edit: true           # coder はコードを編集できる
+    rules:
+      - condition: Implementation complete
+        next: COMPLETE

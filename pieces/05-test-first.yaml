@@ -1,0 +1,42 @@
+# 05-test-first.yaml
+# テストファースト開発: テスト作成 → 実装 → レビュー
+# 学習ポイント: TDD スタイルのワークフローを TAKT で表現する
+
+name: test-first
+initial_movement: plan
+max_movements: 15
+
+movements:
+  - name: plan
+    persona: planner
+    edit: false
+    rules:
+      - condition: Planning complete
+        next: write-tests
+
+  - name: write-tests
+    persona: test-writer     # テストを先に書く
+    edit: true
+    required_permission_mode: edit
+    rules:
+      - condition: Tests written
+        next: implement
+
+  - name: implement
+    persona: coder           # テストを通す実装を書く
+    edit: true
+    required_permission_mode: edit
+    rules:
+      - condition: Implementation complete
+        next: review
+
+  - name: review
+    persona: reviewer
+    edit: false
+    rules:
+      - condition: Approved
+        next: COMPLETE
+      - condition: Needs fix
+        next: implement
+      - condition: Tests inadequate
+        next: write-tests    # テストが不十分なら戻る

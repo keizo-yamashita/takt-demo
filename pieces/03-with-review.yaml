@@ -1,0 +1,32 @@
+# 03-with-review.yaml
+# 計画 → 実装 → レビュー（修正ループ付き）
+# 学習ポイント: レビューでの差し戻し（fix loop）の仕組み
+
+name: plan-implement-review
+initial_movement: plan
+max_movements: 10
+
+movements:
+  - name: plan
+    persona: planner
+    edit: false
+    rules:
+      - condition: Planning complete
+        next: implement
+
+  - name: implement
+    persona: coder
+    edit: true
+    required_permission_mode: edit
+    rules:
+      - condition: Implementation complete
+        next: review
+
+  - name: review
+    persona: reviewer
+    edit: false
+    rules:
+      - condition: Approved
+        next: COMPLETE       # レビュー通過 → 完了
+      - condition: Needs fix
+        next: implement      # 差し戻し → 実装に戻る（fix loop）

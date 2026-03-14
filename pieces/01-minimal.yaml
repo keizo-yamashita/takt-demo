@@ -1,0 +1,15 @@
+# 01-minimal.yaml
+# 最もシンプルな piece: 実装のみ（レビューなし）
+# 学習ポイント: piece / movement の基本構造を理解する
+
+name: minimal
+initial_movement: implement
+max_movements: 3
+
+movements:
+  - name: implement
+    persona: coder
+    edit: true
+    rules:
+      - condition: Implementation complete
+        next: COMPLETE
