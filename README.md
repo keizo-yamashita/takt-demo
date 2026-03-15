@@ -20,21 +20,24 @@ npm run start
 
 ### TAKT の設定
 
+本プロジェクトでは **Claude Code** をプロバイダーとして使用する。Claude Code がインストール済みであれば API キーは不要。
+
 ```bash
 # ~/.takt/config.yaml を作成
 mkdir -p ~/.takt
 cat > ~/.takt/config.yaml << 'EOF'
-provider: claude
+provider: claude    # Claude Code をエージェントとして使用
 model: sonnet
 language: ja
 EOF
 ```
 
-または API キーを環境変数で設定:
-
-```bash
-export TAKT_ANTHROPIC_API_KEY=sk-ant-...
-```
+> **前提条件**: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) がインストール・認証済みであること。
+>
+> ```bash
+> # Claude Code のインストール（未導入の場合）
+> npm install -g @anthropic-ai/claude-code
+> ```
 
 ## プロジェクト構成
 
