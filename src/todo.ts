@@ -2,6 +2,7 @@ export interface Todo {
   id: number;
   title: string;
   completed: boolean;
+  completedAt: Date | null;
   createdAt: Date;
 }
 
@@ -14,6 +15,7 @@ export class TodoList {
       id: this.nextId++,
       title,
       completed: false,
+      completedAt: null,
       createdAt: new Date(),
     };
     this.todos.push(todo);
@@ -24,6 +26,16 @@ export class TodoList {
     const todo = this.todos.find((t) => t.id === id);
     if (todo) {
       todo.completed = true;
+      todo.completedAt = new Date();
+    }
+    return todo;
+  }
+
+  uncomplete(id: number): Todo | undefined {
+    const todo = this.todos.find((t) => t.id === id);
+    if (todo) {
+      todo.completed = false;
+      todo.completedAt = null;
     }
     return todo;
   }

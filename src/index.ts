@@ -15,5 +15,14 @@ for (const todo of todoList.list()) {
 todoList.complete(1);
 
 console.log("\nAfter completing #1:");
+for (const todo of todoList.listCompleted()) {
+  console.log(`  [x] #${todo.id}: ${todo.title} (completed: ${todo.completedAt?.toISOString()})`);
+}
 console.log(`  Pending: ${todoList.listPending().length}`);
 console.log(`  Completed: ${todoList.listCompleted().length}`);
+
+todoList.uncomplete(1);
+
+console.log("\nAfter uncompleting #1:");
+const todo1 = todoList.list().find((t) => t.id === 1);
+console.log(`  [${todo1?.completed ? "x" : " "}] #${todo1?.id}: ${todo1?.title} (completedAt: ${todo1?.completedAt})`);
